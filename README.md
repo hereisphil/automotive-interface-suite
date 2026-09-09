@@ -21,6 +21,20 @@
 
 🎥 YouTube Video: <https://www.youtube.com/watch?v=vvwHvsxxcVM>
 
+---
+
+## 2️⃣ P.2 - Phone Interface
+
+> **Completed:** Wednesday, September 9, 2026
+
+💻 [DESKTOP] YouTube Video: <https://www.youtube.com/watch?v=AOrAB0TiHb0>
+
+📱 [iOS Expo Go] YouTube Video: <https://www.youtube.com/shorts/nyouerkCwsE>
+
+---
+
+## THE HOW-TO BEGINS HERE 🤩
+
 ### Requirements
 
 - [Bun](https://bun.sh)
@@ -32,13 +46,18 @@ git clone https://github.com/hereisphil/automotive-interface-suite.git
 cd automotive-interface-suite
 bun install
 bun run --filter @automotive/shared-types build
+```
+
+_`bun run --filter @automotive/shared-types build` uses `tsc` against `shared-types/index.ts` to export compiled declarations and types shared across the monorepo._
+
+### Running the server
+
+```bash
 cd server
 bun run dev
 ```
 
-_`bun run --filter @automotive/shared-types build` uses `tsc`against `shared-types/index.ts` to export compiled declarations and types shared across the monorepo._
-
-Expect to see:
+Expect to see this in the terminal:
 
 ```bash
 🚗 Vehicle Server running on port 3001
@@ -59,3 +78,26 @@ test client connected. Total: 1
 **Web Browser:**
 
 ![test-client](./screenshots/P.1%20-%20Foundational%20Architecture/test-client.png)
+
+You can go to <http://localhost:3001> in the web browser or run a `curl` command to verify the server is running
+
+### Run the mobile app
+
+⚠️ You **MUST** update the **SERVER_URL** within `mobile-controls/src/hooks/useVehicleConnection.ts` with your local IP address. For context, on macOS you can check your IP by running `ipconfig getifaddr en0` (or `en4` if connected via a dock/Ethernet like myself). Keep the `:3001` because, if you recall, the server runs on Port 3001.
+
+Open a new terminal while **keeping the server running in another terminal.**
+
+```bash
+cd mobile-controls
+bunx expo start
+```
+
+Test the mobile app via your iOS/Android simulators or, what I use, the Expo Go mobile application, which is what I recommend and you can get that here:
+
+iOS (USA): <https://apps.apple.com/us/app/expo-go/id982107779>
+
+Android (USA): <https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US&pli=1>
+
+**Expect to see:**
+
+![iOS-Expo-Go](./screenshots/P.2%20-%20Phone%20Interface/iOS%20Expo%20Go.jpeg)
