@@ -5,7 +5,6 @@ import cors from "cors";
 import {
     VehicleState,
     ControlInput,
-    EnvironmentUpdate,
     ClientType,
 } from "@automotive/shared-types";
 
@@ -193,6 +192,21 @@ function updateVehiclePhysics(): void {
 
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
-    console.log(`🚗 Vehicle Server running on port ${PORT}`);
+    console.log(`🚗 Vehicle Server running on port http://localhost:${PORT}/`);
     console.log("Waiting for clients to connect...");
+});
+
+// Basic health/status route
+app.get("/", (req, res) => {
+    res.json({
+        status: "online",
+        service: "Automotive Interface Suite Server",
+        uptime: process.uptime(),
+        clients: connectedClients,
+        vehicleState: {
+            speed: vehicleState.motion.speed,
+            gear: vehicleState.controls.gear,
+            rpm: vehicleState.cluster.rpm,
+        },
+    });
 });

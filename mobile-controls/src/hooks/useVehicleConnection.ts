@@ -4,7 +4,7 @@ import { VehicleState, ControlInput } from "@automotive/shared-types";
 import { VehicleConnection } from "@/types";
 
 // Replace with your actual server IP
-const SERVER_URL = "http://10.0.0.227:3001";
+const SERVER_URL = "http://192.168.1.105:3001";
 
 export function useVehicleConnection(): VehicleConnection {
     const [socket, setSocket] = useState<Socket | null>(null);

@@ -1,20 +1,214 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import * as ScreenOrientation from "expo-screen-orientation";
+import { useVehicleConnection } from "@/hooks/useVehicleConnection";
+import SteeringSlider from "@/components/SteeringSlider";
+import GasPedal from "@/components/GasPedal";
+import BrakeButton from "@/components/BrakeButton";
+import Controls from "@/components/Controls";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    const { connected, vehicleState, sendControlInput } =
+        useVehicleConnection();
+
+    useEffect(() => {
+        // Lock screen orientation to landscape
+        const lockOrientation = async () => {
+            try {
+                await ScreenOrientation.lockAsync(
+                    ScreenOrientation.OrientationLock.LANDSCAPE,
+                );
+                console.log("Orientation locked to landscape");
+            } catch (error) {
+                console.log("Failed to lock orientation:", error);
+            }
+        };
+
+        lockOrientation();
+        return () => {
+            ScreenOrientation.unlockAsync();
+        };
+    }, []);
+
+    const handleSteering = (value: number) => {
+        sendControlInput("steering", value);
+    };
+
+    const handleThrottle = (value: number) => {
+        sendControlInput("throttle", value);
+        // Auto-shift to Drive when throttle is applied
+        if (value > 0 && vehicleState.controls?.gear !== "D") {
+            sendControlInput("gear", "D");
+        }
+    };
+
+    return (
+        <View style={styles.container}>
+            <StatusBar style="light" />
+
+            {/* Header Bar */}
+            <View style={styles.header}>
+                <View style={styles.connectionStatus}>
+                    <View
+                        style={[
+                            styles.statusDot,
+                            {
+                                backgroundColor: connected
+                                    ? "#4CAF50"
+                                    : "#F44336",
+                            },
+                        ]}
+                    />
+                    <Text style={styles.connectionText}>
+                        {connected ? "Connected" : "Disconnected"}
+                    </Text>
+                </View>
+
+                <Text style={styles.title}>🚗 Drive Controls</Text>
+
+                <View style={styles.speedDisplay}>
+                    <Text style={styles.speedText}>
+                        {Math.round(vehicleState.motion?.speed || 0)}
+                    </Text>
+                    <Text style={styles.speedUnit}>MPH</Text>
+                </View>
+            </View>
+
+            {/* Main Control Area */}
+            <View style={styles.controlArea}>
+                {/* Left Side - Steering */}
+                <View style={styles.leftControls}>
+                    <SteeringSlider onSteer={handleSteering} />
+                </View>
+
+                {/* Center - Vehicle Info & Controls */}
+                <View style={styles.centerInfo}>
+                    <View style={styles.gearDisplay}>
+                        <Text style={styles.gearLabel}>GEAR</Text>
+                        <Text style={styles.gearValue}>
+                            {vehicleState.controls?.gear || "P"}
+                        </Text>
+                    </View>
+
+                    <Controls
+                        onControl={sendControlInput}
+                        currentGear={vehicleState.controls?.gear}
+                        systems={vehicleState.systems}
+                    />
+                </View>
+
+                {/* Right Side - Gas & Brake */}
+                <View style={styles.rightControls}>
+                    <View style={styles.pedalControls}>
+                        <GasPedal onThrottle={handleThrottle} />
+                        <BrakeButton onBrake={sendControlInput} />
+                    </View>
+                </View>
+            </View>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: "#1a1a1a",
+    },
+    header: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        backgroundColor: "#2a2a2a",
+        borderBottomWidth: 2,
+        borderBottomColor: "#444",
+    },
+    connectionStatus: {
+        flexDirection: "row",
+        alignItems: "center",
+        flex: 1,
+    },
+    statusDot: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        marginRight: 5,
+    },
+    connectionText: {
+        color: "#fff",
+        fontSize: 12,
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#fff",
+        flex: 2,
+        textAlign: "center",
+    },
+    speedDisplay: {
+        alignItems: "center",
+        flex: 1,
+    },
+    speedText: {
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "#00FF88",
+    },
+    speedUnit: {
+        fontSize: 10,
+        color: "#888",
+    },
+    controlArea: {
+        flex: 1,
+        flexDirection: "row",
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+    },
+    leftControls: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingRight: 10,
+    },
+    centerInfo: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingHorizontal: 10,
+    },
+    gearDisplay: {
+        alignItems: "center",
+        backgroundColor: "#2a2a2a",
+        borderRadius: 10,
+        padding: 15,
+        marginBottom: 20,
+        borderWidth: 2,
+        borderColor: "#444",
+        minWidth: 80,
+    },
+    gearLabel: {
+        color: "#888",
+        fontSize: 12,
+        fontWeight: "bold",
+    },
+    gearValue: {
+        color: "#00FF88",
+        fontSize: 28,
+        fontWeight: "bold",
+        marginTop: 5,
+    },
+    rightControls: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingLeft: 10,
+    },
+    pedalControls: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 20,
+    },
 });
