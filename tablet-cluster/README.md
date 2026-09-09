@@ -12,4 +12,4 @@ To run:
 bun run start
 ```
 
-This project was created using `bun create vite@latest web-map -- --template react-ts`.
+This project was created using `bunx create-expo-app@latest tablet-cluster --template blank-typescript`.
