@@ -1,8 +1,17 @@
 {
-    "name": "shared-types",
+    "name": "@automotive/shared-types",
+    "version": "1.0.0",
     "module": "index.ts",
     "type": "module",
     "private": true,
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
     "scripts": {
         "start": "bun index.ts",
         "dev": "bun --watch index.ts",

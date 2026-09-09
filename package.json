@@ -1,0 +1,11 @@
+{
+    "name": "automotive-interface-suite",
+    "private": true,
+    "workspaces": [
+        "shared-types",
+        "server",
+        "web-map",
+        "mobile-controls",
+        "tablet-cluster"
+    ]
+}
