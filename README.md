@@ -33,6 +33,14 @@
 
 ---
 
+## 3️⃣ P.3 - Tablet Interface
+
+> **Completed:** Thursday, September 10, 2026
+
+🎥 YouTube Video: <https://www.youtube.com/watch?v=r41pQDAbMQI>
+
+---
+
 ## THE HOW-TO BEGINS HERE 🤩
 
 ### Requirements
@@ -75,6 +83,8 @@ Client connected: qmGo0rIF5Cq0idzLAAAA
 test client connected. Total: 1
 ```
 
+_p.s. you'll see similiar messages in your terminal as you begin to connect the other devices, e.g., mobile-controls, tablet-cluster, etc._
+
 **Web Browser:**
 
 ![test-client](./screenshots/P.1%20-%20Foundational%20Architecture/test-client.png)
@@ -101,3 +111,24 @@ Android (USA): <https://play.google.com/store/apps/details?id=host.exp.exponent&
 **Expect to see:**
 
 ![iOS-Expo-Go](./screenshots/P.2%20-%20Phone%20Interface/iOS%20Expo%20Go.jpeg)
+
+### Run the tablet app
+
+⚠️ You **MUST** update the **SERVER_URL** within `tablet-cluster/src/hooks/useDashboardConnection.ts` with your local IP address. For context, on macOS you can check your IP by running `ipconfig getifaddr en0` (or `en4` if connected via a dock/Ethernet like myself). Keep the `:3001` because, if you recall, the server runs on Port 3001.
+
+Open a new terminal while **keeping the server running in another terminal.**
+
+```bash
+cd mobile-controls
+bunx expo start --web  --port 8082
+```
+
+Open <http://localhost:8082/> in your web browser.
+
+**Expect to see:**
+
+![tablet-interface-web](./screenshots/P.3%20-%20Tablet%20Interface/tablet-interface_on-the-web.png)
+
+_You can adjust your browser size or use the dev tools to "emulate" a tablet_
+
+### Play with the controls in your Expo Go app and see the realtime updates!
