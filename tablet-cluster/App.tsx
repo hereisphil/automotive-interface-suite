@@ -1,15 +1,9 @@
-import {
-    StyleSheet,
-    View,
-    StatusBar as RNStatusBar,
-    Dimensions,
-} from "react-native";
+import { StyleSheet, View, StatusBar as RNStatusBar } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useDashboardConnection } from "./src/hooks/useDashboardConnection";
 import DashboardHeader from "./src/components/DashboardHeader";
 import MainGauges from "./src/components/MainGauges";
 import StatusPanel from "./src/components/StatusPanel";
-const { width, height } = Dimensions.get("window");
 
 export default function App() {
     const { vehicleState, connected, lastUpdate } = useDashboardConnection();

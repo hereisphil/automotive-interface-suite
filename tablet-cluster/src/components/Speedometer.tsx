@@ -198,8 +198,7 @@ export default function Speedometer({
 
                 {/* Needle */}
                 <G
-                    rotation={String(needleRotation)}
-                    origin={`${CENTER_X}, ${CENTER_Y}`}
+                    transform={`rotate(${needleRotation}, ${CENTER_X}, ${CENTER_Y})`}
                 >
                     <Line
                         x1={CENTER_X}
