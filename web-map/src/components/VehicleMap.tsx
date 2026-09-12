@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import "./VehicleMap.css";
+import "../styles/VehicleMap.css";
 import type { VehiclePosition, SpeedZone, TrafficAlert } from "@/types/web";
 
 // Set Mapbox access token
@@ -231,11 +231,11 @@ export default function VehicleMap({
                     features,
                 });
                 // Reduced logging frequency
-                if (vehicles.length > 0) {
-                    console.log(
-                        `Updated ${features.length} vehicles on map - Vehicle 1 at: [${vehicles[0].coordinates[0].toFixed(4)}, ${vehicles[0].coordinates[1].toFixed(4)}] Speed: ${Math.round(vehicles[0].speed)} MPH`,
-                    );
-                }
+                // if (vehicles.length > 0) {
+                //     console.log(
+                //         `Updated ${features.length} vehicles on map - Vehicle 1 at: [${vehicles[0].coordinates[0].toFixed(4)}, ${vehicles[0].coordinates[1].toFixed(4)}] Speed: ${Math.round(vehicles[0].speed)} MPH`,
+                //     );
+                // }
             } else {
                 console.warn("Vehicles source not found");
             }

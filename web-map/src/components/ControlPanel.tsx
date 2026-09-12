@@ -1,4 +1,4 @@
-import "./ControlPanel.css";
+import "../styles/ControlPanel.css";
 import type { TrafficAlert } from "@/types/web";
 import type { EnvironmentUpdate } from "@automotive/shared-types";
 import { useState } from "react";

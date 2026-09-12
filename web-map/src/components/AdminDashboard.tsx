@@ -18,10 +18,12 @@ export default function AdminDashboard({
     };
 
     const getTotalConnections = (): number => {
-        return Object.values(metrics.connectedDevices).reduce(
+        const connections = Object.values(metrics.connectedDevices).reduce(
             (sum, count) => sum + count,
             0,
         );
+        // console.log(connections);
+        return connections;
     };
 
     const getLatencyStatus = (): { color: string; status: string } => {
