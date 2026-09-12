@@ -7,11 +7,13 @@
 
 ## Workspaces (4 Services + 1 Shared Types)
 
+- server (Node/Express.js)
+- shared-types (TS Type Exports)
 - mobile-controls (React Native)
 - tablet-cluster (React Native)
 - web-map (React)
-- server (Node/Express.js)
-- shared-types (TS Type Exports)
+
+> The "tablet-cluster" is demo-able on the web
 
 ---
 
@@ -38,6 +40,16 @@
 > **Completed:** Thursday, September 10, 2026
 
 🎥 YouTube Video: <https://www.youtube.com/watch?v=r41pQDAbMQI>
+
+---
+
+## 4️⃣ P.4 - Web Interface
+
+> **Completed:** Saturday, September 12, 2026
+
+🎥 YouTube Video: <https://www.youtube.com/watch?v=3P-WUoueK4g>
+
+⚠️ Not absolutely everything is working here, very little was changed from the code that Full Sail gave me, yet we get the gist of it.
 
 ---
 
@@ -114,9 +126,9 @@ Android (USA): <https://play.google.com/store/apps/details?id=host.exp.exponent&
 
 ### Run the tablet app
 
-⚠️ You **MUST** update the **SERVER_URL** within `tablet-cluster/src/hooks/useDashboardConnection.ts` with your local IP address. For context, on macOS you can check your IP by running `ipconfig getifaddr en0` (or `en4` if connected via a dock/Ethernet like myself). Keep the `:3001` because, if you recall, the server runs on Port 3001.
+⚠️ You **MUST** update the **SERVER_URL** within `tablet-cluster/src/hooks/useDashboardConnection.ts`.
 
-Open a new terminal while **keeping the server running in another terminal.**
+Open a new terminal while **keeping the server & mobile-controls running in another terminal.**
 
 ```bash
 cd mobile-controls
@@ -131,4 +143,25 @@ Open <http://localhost:8082/> in your web browser.
 
 _You can adjust your browser size or use the dev tools to "emulate" a tablet_
 
-### Play with the controls in your Expo Go app and see the realtime updates!
+### Run the web app
+
+⚠️ You **MUST** update the **SERVER_URL** within `web-map/src/hooks/useTrafficControl.ts`.
+
+‼️ You **MUST** create .env file at `web-map/.env` based off of the .env.example with your `VITE_MAPBOX_ACCESS_TOKEN`.
+
+Open a new terminal while **keeping the server & mobile-controls & tablet-cluster running in another terminal.**
+
+```bash
+cd web-map
+bun run dev
+```
+
+Open <http://localhost:5173/> in your web browser.
+
+**Expect to see:**
+
+![web-map](./screenshots/P.4%20-%20Web%20Interface/web-admin-dashboard.png)
+
+### Play with the controls in your Expo Go app and see the realtime updates! 🥳
+
+Thanks!
