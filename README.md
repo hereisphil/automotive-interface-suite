@@ -59,6 +59,8 @@
 
 🎥 YouTube Video: <https://www.youtube.com/watch?v=PoJhxttmGwk>
 
+📝 Documentation: [[P.5] DEBUGGING.md](/[P.5]%20DEBUGGING.md)
+
 ---
 
 ## THE HOW-TO BEGINS HERE 🤩
