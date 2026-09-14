@@ -53,6 +53,14 @@
 
 ---
 
+## 5️⃣ P.5 - Debug | Broken Reverse Functionality
+
+> **Completed:** Sunday, September 13, 2026
+
+🎥 YouTube Video: <https://www.youtube.com/watch?v=PoJhxttmGwk>
+
+---
+
 ## THE HOW-TO BEGINS HERE 🤩
 
 ### Requirements
