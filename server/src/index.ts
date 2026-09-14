@@ -96,7 +96,6 @@ io.on("connection", (socket) => {
     // Handle control inputs from mobile app with type safety
     socket.on("control-input", (data: ControlInput) => {
         const { type, value } = data;
-
         // Update vehicle state based on input with type-safe operations
         switch (type) {
             case "throttle":
@@ -155,7 +154,10 @@ function updateVehiclePhysics(): void {
     const { controls, motion } = vehicleState;
 
     // Simple acceleration/deceleration model
-    if (controls.throttle > 0 && controls.gear === "D") {
+    if (
+        controls.throttle > 0 &&
+        (controls.gear === "D" || controls.gear === "R")
+    ) {
         motion.speed += controls.throttle * 0.5; // Acceleration
         motion.accelerating = true;
     } else if (controls.brake > 0) {
@@ -170,7 +172,7 @@ function updateVehiclePhysics(): void {
     motion.speed = Math.max(0, Math.min(120, motion.speed));
 
     // Update RPM based on speed and gear
-    if (controls.gear === "D") {
+    if (controls.gear === "D" || controls.gear === "R") {
         vehicleState.cluster.rpm = Math.min(
             6000,
             motion.speed * 50 + controls.throttle * 1000,

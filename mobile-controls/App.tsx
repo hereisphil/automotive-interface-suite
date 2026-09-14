@@ -38,7 +38,14 @@ export default function App() {
     const handleThrottle = (value: number) => {
         sendControlInput("throttle", value);
         // Auto-shift to Drive when throttle is applied
-        if (value > 0 && vehicleState.controls?.gear !== "D") {
+        if (value > 0 && vehicleState.controls?.gear === "R") {
+            sendControlInput("gear", "R");
+        }
+        if (
+            value > 0 &&
+            vehicleState.controls?.gear !== "D" &&
+            vehicleState.controls?.gear !== "R"
+        ) {
             sendControlInput("gear", "D");
         }
     };
